@@ -24,11 +24,17 @@ AppDriver <- R6Class(
       self$session |>
         selenider$find_element("[data-test='income']") |>
         selenider$elem_set_value(amount)
+      self$session |>
+        selenider$find_element("[data-test='record-income']") |>
+        selenider$elem_click()
     },
     record_expense = function(amount) {
       self$session |>
         selenider$find_element("[data-test='expense']") |>
         selenider$elem_set_value(amount)
+      self$session |>
+        selenider$find_element("[data-test='record-expense']") |>
+        selenider$elem_click()
     }
   )
 )
