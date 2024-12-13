@@ -1,5 +1,6 @@
 box::use(
   shiny[
+    actionButton,
     bootstrapPage,
     moduleServer,
     NS,
@@ -21,6 +22,13 @@ ui <- function(id) {
         .cssSelector = "input",
         "data-test" = "income"
       ),
+    actionButton(
+      ns("record_income"),
+      "Record Income"
+    ) |>
+      tagAppendAttributes(
+        "data-test" = "record-income"
+      ),
     numericInput(
       ns("expense"),
       label = "Expense",
@@ -29,6 +37,13 @@ ui <- function(id) {
       tagAppendAttributes(
         .cssSelector = "input",
         "data-test" = "expense"
+      ),
+    actionButton(
+      ns("record_expense"),
+      "Record Expense"
+    ) |>
+      tagAppendAttributes(
+        "data-test" = "record-expense"
       )
   )
 }
