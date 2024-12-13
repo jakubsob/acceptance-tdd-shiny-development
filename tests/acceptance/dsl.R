@@ -24,6 +24,11 @@ AppDriver <- R6Class(
       self$session |>
         selenider$find_element("[data-test='income']") |>
         selenider$elem_set_value(amount)
+    },
+    record_expense = function(amount) {
+      self$session |>
+        selenider$find_element("[data-test='expense']") |>
+        selenider$elem_set_value(amount)
     }
   )
 )
@@ -34,6 +39,7 @@ get_driver_factory <- function() {
     if (is.null(driver)) {
       driver <<- AppDriver$new()
     }
+    driver
   }
 }
 get_driver <- get_driver_factory()
@@ -46,7 +52,8 @@ record_income <- function(amount) {
 
 #' @export
 record_expense <- function(amount) {
-
+  driver <- get_driver()
+  driver$record_expense(amount)
 }
 
 #' @export
