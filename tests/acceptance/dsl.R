@@ -49,6 +49,13 @@ AppDriver <- R6Class(
         selenider$elem_text() |>
         as.numeric() |>
         expect_equal(amount)
+    },
+    verify_net_balance = function(amount) {
+      self$session |>
+        selenider$find_element("[data-test='net-balance']") |>
+        selenider$elem_text() |>
+        as.numeric() |>
+        expect_equal(amount)
     }
   )
 )
@@ -95,5 +102,6 @@ verify_total_expenses <- function(amount) {
 
 #' @export
 verify_net_balance <- function(amount) {
-  fail("Not implemented")
+  driver <- get_driver()
+  driver$verify_net_balance(amount)
 }
