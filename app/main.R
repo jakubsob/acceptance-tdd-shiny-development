@@ -20,6 +20,15 @@ ui <- function(id) {
       tagAppendAttributes(
         .cssSelector = "input",
         "data-test" = "income"
+      ),
+    numericInput(
+      ns("expense"),
+      label = "Expense",
+      value = 0
+    ) |>
+      tagAppendAttributes(
+        .cssSelector = "input",
+        "data-test" = "expense"
       )
   )
 }
