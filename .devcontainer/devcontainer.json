@@ -1,0 +1,83 @@
+{
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "features": {
+    "ghcr.io/rocker-org/devcontainer-features/pandoc:1": {},
+    "ghcr.io/devcontainers/features/git:1": {
+      "ppa": true,
+      "version": "os-provided"
+    },
+    "ghcr.io/rocker-org/devcontainer-features/r-history:0": {},
+    "ghcr.io/rocker-org/devcontainer-features/r-rig:1": {
+      "version": "4.4.1",
+      "installREnv": true,
+      "installRadian": true,
+      "installVscDebugger": true,
+      "pakVersion": "auto",
+      "vscodeRSupport": "full",
+      "pandocVersion": "auto"
+    },
+    "ghcr.io/rocker-org/devcontainer-features/renv-cache:0": {},
+    "ghcr.io/devcontainers/features/node:1": {
+      "nodeGypDependencies": true,
+      "version": "lts",
+      "nvmVersion": "latest"
+    },
+    "ghcr.io/kreemer/features/chrometesting:1": {}
+  },
+  "postCreateCommand": "chmod +x .devcontainer/postCreateCommand.sh  && ./.devcontainer/postCreateCommand.sh",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "r.rterm.linux": "/usr/local/bin/radian",
+        "r.rpath.linux": "/usr/local/bin/R",
+        "[r]": {
+          "editor.detectIndentation": false,
+          "editor.tabSize": 2,
+          "editor.formatOnSaveMode": "file",
+          "editor.formatOnSave": true,
+          "editor.formatOnPaste": true,
+          "editor.defaultFormatter": "REditorSupport.r"
+        },
+        "r.bracketedPaste": true,
+        "r.plot.useHttpgd": true,
+        "r.session.levelOfObjectDetail": "Detailed",
+        "r.session.viewers.viewColumn": {
+          "browser": "Disable"
+        },
+        "yaml.customTags": ["!expr"],
+        "[yaml]": {
+          "editor.defaultFormatter": "redhat.vscode-yaml",
+          "editor.formatOnPaste": true,
+          "editor.formatOnSave": true
+        },
+        "files.trimTrailingWhitespace": true
+      },
+      "extensions": [
+        "alexkrechik.cucumberautocomplete",
+        "aPinix.indent-jump",
+        "eamodio.gitlens",
+        "esbenp.prettier-vscode",
+        "kisstkondoros.vscode-gutter-preview",
+        "mhutchie.git-graph",
+        "naumovs.color-highlight",
+        "oderwat.indent-rainbow",
+        "vivaxy.vscode-conventional-commits",
+        "aaron-bond.better-comments",
+        "SimonSiefke.svg-preview",
+        "bierner.markdown-mermaid",
+        "redhat.vscode-yaml",
+        "ms-vscode.live-server",
+        "GitHub.copilot",
+        "GitHub.copilot-chat",
+        "adpyke.codesnap",
+        "bierner.github-markdown-preview",
+        "usernamehw.errorlens"
+      ]
+    }
+  },
+  "containerEnv": {
+    "CHROMOTE_CHROME": "/usr/local/bin/chrome"
+  }
+}
