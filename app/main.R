@@ -5,7 +5,11 @@ box::use(
     moduleServer,
     NS,
     numericInput,
+    observeEvent,
+    reactiveVal,
+    renderText,
     tagAppendAttributes,
+    textOutput,
   ],
 )
 
@@ -44,6 +48,12 @@ ui <- function(id) {
     ) |>
       tagAppendAttributes(
         "data-test" = "record-expense"
+      ),
+    textOutput(
+      ns("total_income")
+    ) |>
+      tagAppendAttributes(
+        "data-test" = "total-income"
       )
   )
 }
@@ -51,6 +61,14 @@ ui <- function(id) {
 #' @export
 server <- function(id) {
   moduleServer(id, function(input, output, session) {
+    total_income <- reactiveVal(0)
 
+    observeEvent(input$record_income, {
+      total_income(total_income() + input$income)
+    })
+
+    output$total_income <- renderText({
+      total_income()
+    })
   })
 }
