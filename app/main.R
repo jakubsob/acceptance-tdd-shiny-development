@@ -1,72 +1,56 @@
 box::use(
   shiny[
-    actionButton,
     bootstrapPage,
     moduleServer,
     NS,
-    numericInput,
     observeEvent,
     reactiveVal,
     renderText,
-    tagAppendAttributes,
-    textOutput,
   ],
+)
+
+box::use(
+  app / components,
 )
 
 #' @export
 ui <- function(id) {
   ns <- NS(id)
   bootstrapPage(
-    numericInput(
+    components$numeric_input(
       ns("income"),
       label = "Income",
-      value = 0
-    ) |>
-      tagAppendAttributes(
-        .cssSelector = "input",
-        "data-test" = "income"
-      ),
-    actionButton(
+      value = 0,
+      .data_test = "income"
+    ),
+    components$button(
       ns("record_income"),
-      "Record Income"
-    ) |>
-      tagAppendAttributes(
-        "data-test" = "record-income"
-      ),
-    numericInput(
+      "Record Income",
+      .data_test = "record-income"
+    ),
+    components$numeric_input(
       ns("expense"),
       label = "Expense",
-      value = 0
-    ) |>
-      tagAppendAttributes(
-        .cssSelector = "input",
-        "data-test" = "expense"
-      ),
-    actionButton(
+      value = 0,
+      .data_test = "expense"
+    ),
+    components$button(
       ns("record_expense"),
-      "Record Expense"
-    ) |>
-      tagAppendAttributes(
-        "data-test" = "record-expense"
-      ),
-    textOutput(
-      ns("total_income")
-    ) |>
-      tagAppendAttributes(
-        "data-test" = "total-income"
-      ),
-    textOutput(
-      ns("total_expenses")
-    ) |>
-      tagAppendAttributes(
-        "data-test" = "total-expenses"
-      ),
-    textOutput(
-      ns("net_balance")
-    ) |>
-      tagAppendAttributes(
-        "data-test" = "net-balance"
-      )
+      "Record Expense",
+      .data_test = "record-expense"
+    ),
+    components$text_output(
+      ns("total_income"),
+      .data_test = "total-income"
+    ),
+    components$text_output(
+      ns("total_expenses"),
+      .data_test = "total-expenses"
+    ),
+    components$text_output(
+      ns("net_balance"),
+      .data_test = "net-balance"
+    )
   )
 }
 
