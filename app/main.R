@@ -3,13 +3,25 @@ box::use(
     bootstrapPage,
     moduleServer,
     NS,
+    numericInput,
+    tagAppendAttributes,
   ],
 )
 
 #' @export
 ui <- function(id) {
   ns <- NS(id)
-  bootstrapPage()
+  bootstrapPage(
+    numericInput(
+      ns("income"),
+      label = "Income",
+      value = 0
+    ) |>
+      tagAppendAttributes(
+        .cssSelector = "input",
+        "data-test" = "income"
+      )
+  )
 }
 
 #' @export
