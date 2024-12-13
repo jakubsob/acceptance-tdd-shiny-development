@@ -69,6 +69,11 @@ jobs:
         shell: Rscript {0}
         run: rhino::test_r()
 
+      - name: Run R acceptance tests
+        if: always()
+        shell: Rscript {0}
+        run: .test_acceptance()
+
       - name: Run Cypress end-to-end tests
         if: always()
         uses: cypress-io/github-action@v6

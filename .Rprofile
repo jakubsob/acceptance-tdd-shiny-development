@@ -16,3 +16,8 @@ if (nzchar(system.file(package = "box.lsp"))) {
     )
   )
 }
+
+.test_acceptance <- function() {
+  box::purge_cache()
+  testthat::test_dir("tests/acceptance")
+}
