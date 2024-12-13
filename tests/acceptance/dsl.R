@@ -66,10 +66,19 @@ get_driver_factory <- function() {
     if (is.null(driver)) {
       driver <<- AppDriver$new()
     }
+    if (!driver$driver$get_chromote_session()$is_active()) {
+      driver <<- AppDriver$new()
+    }
     driver
   }
 }
 get_driver <- get_driver_factory()
+
+#' @export
+teardown <- function() {
+  driver <- get_driver()
+  driver$driver$stop()
+}
 
 #' @export
 record_income <- function(amount) {
