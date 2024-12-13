@@ -54,6 +54,12 @@ ui <- function(id) {
     ) |>
       tagAppendAttributes(
         "data-test" = "total-income"
+      ),
+    textOutput(
+      ns("total_expenses")
+    ) |>
+      tagAppendAttributes(
+        "data-test" = "total-expenses"
       )
   )
 }
@@ -62,13 +68,22 @@ ui <- function(id) {
 server <- function(id) {
   moduleServer(id, function(input, output, session) {
     total_income <- reactiveVal(0)
+    total_expenses <- reactiveVal(0)
 
     observeEvent(input$record_income, {
       total_income(total_income() + input$income)
     })
 
+    observeEvent(input$record_expense, {
+      total_expenses(total_expenses() + input$expense)
+    })
+
     output$total_income <- renderText({
       total_income()
+    })
+
+    output$total_expenses <- renderText({
+      total_expenses()
     })
   })
 }
