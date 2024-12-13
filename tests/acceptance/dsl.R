@@ -35,6 +35,13 @@ AppDriver <- R6Class(
       self$session |>
         selenider$find_element("[data-test='record-expense']") |>
         selenider$elem_click()
+    },
+    verify_total_income = function(amount) {
+      self$session |>
+        selenider$find_element("[data-test='total-income']") |>
+        selenider$elem_text() |>
+        as.numeric() |>
+        expect_equal(amount)
     }
   )
 )
@@ -69,7 +76,8 @@ inspect_finances <- function() {
 
 #' @export
 verify_total_income <- function(amount) {
-  fail("Not implemented")
+  driver <- get_driver()
+  driver$verify_total_income(amount)
 }
 
 #' @export
