@@ -60,6 +60,12 @@ ui <- function(id) {
     ) |>
       tagAppendAttributes(
         "data-test" = "total-expenses"
+      ),
+    textOutput(
+      ns("net_balance")
+    ) |>
+      tagAppendAttributes(
+        "data-test" = "net-balance"
       )
   )
 }
@@ -84,6 +90,10 @@ server <- function(id) {
 
     output$total_expenses <- renderText({
       total_expenses()
+    })
+
+    output$net_balance <- renderText({
+      total_income() - total_expenses()
     })
   })
 }
