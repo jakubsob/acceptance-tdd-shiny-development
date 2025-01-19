@@ -11,6 +11,9 @@ box::use(
 
 box::use(
   app / components,
+  app / registry,
+  app / storage,
+  app / transaction,
 )
 
 #' @export
@@ -55,29 +58,39 @@ ui <- function(id) {
 }
 
 #' @export
-server <- function(id) {
+server <- function(
+    id,
+    .storage = storage$new(
+      getOption("storage.path", "store.csv"),
+      getOption("storage.schema", transaction$new())
+    )) {
   moduleServer(id, function(input, output, session) {
-    total_income <- reactiveVal(0)
-    total_expenses <- reactiveVal(0)
+    .registry <- registry$new(.storage)
+    has_registry_updated <- reactiveVal(0)
 
     observeEvent(input$record_income, {
-      total_income(total_income() + input$income)
+      .registry$record(transaction$new(input$income)) # nolint
+      has_registry_updated(has_registry_updated() + 1)
     })
 
     observeEvent(input$record_expense, {
-      total_expenses(total_expenses() + input$expense)
+      .registry$record(transaction$new(-input$expense)) # nolint
+      has_registry_updated(has_registry_updated() + 1)
     })
 
     output$total_income <- renderText({
-      total_income()
+      has_registry_updated()
+      .registry$get_total_positive()
     })
 
     output$total_expenses <- renderText({
-      total_expenses()
+      has_registry_updated()
+      .registry$get_total_negative()
     })
 
     output$net_balance <- renderText({
-      total_income() - total_expenses()
+      has_registry_updated()
+      .registry$get_total()
     })
   })
 }

@@ -1,4 +1,5 @@
 box::use(
+  glue[glue],
   R6[R6Class],
   rhino,
   selenider,
@@ -13,7 +14,13 @@ AppDriver <- R6Class(
     driver = NULL,
     initialize = function(app = rhino$app()) {
       with_dir("../../", {
-        self$driver <- shinytest2$AppDriver$new(app)
+        self$driver <- shinytest2$AppDriver$new(
+          app,
+          options = list(
+            storage.path = glue("session_{floor(as.numeric(Sys.time()))}.csv"),
+            storage.schema = list(amount = numeric())
+          )
+        )
         self$session <- selenider$selenider_session(
           driver = self$driver,
           local = FALSE
