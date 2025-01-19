@@ -116,10 +116,26 @@ You can see the implementation of tests and the app, but I recommend you go thro
 ### 13. **[refactor: :recycle::white_check_mark: Refactor inputs to a components module](https://github.com/jakubsob/acceptance-tdd-shiny-development/commit/c0f4df2f31b3f4965d80c4a391931e6f32c6c7f7)**
 - We can safely refactor the code, we will know if code still works as long as tests are passing.
 
-### 14. **[test: :test::white_check_mark: Add a second scenario](https://github.com/jakubsob/acceptance-tdd-shiny-development/commit/cba2c73ea04b08c6a0eec7b39319a2c179c5c77c)**
+### 14. **[test: :test_tube::white_check_mark: Add a second scenario](https://github.com/jakubsob/acceptance-tdd-shiny-development/commit/adae8cd3e901a81c8e3048ea42fafb7e6d0df130)**
 - Add a second test scenario to test if we can record multiple expenses.
 - Reuse existing steps to create a new scenario.
 - Implement a teardown function to allow running multiple scenarios.
+
+### 15. **[test: :test_tube::x: Create specification for the registry – interface for persistent storage](https://github.com/jakubsob/acceptance-tdd-shiny-development/commit/72d31a62cc661b545aa25e4181a90f6b6c76867b)**
+- Add unit tests for an object that the app will interact with to store data to a persistent storage.
+- This is an implementation detail of the app, it doesn't change the behavior of the app – tests are added to `tests/testthat/`, no changes in acceptance tests are needed.
+
+### 16. **[test: :test_tube::x: Add specification for CSV storage](https://github.com/jakubsob/acceptance-tdd-shiny-development/commit/f7b572f3bb29a14cc95ae58c18792edf2a73fa32)**
+- Create a specification for an interface that will connect the app with a CSV file.
+
+### 17. **[feat: :test_tube::white_check_mark: Add implementation of the storage and registry](https://github.com/jakubsob/acceptance-tdd-shiny-development/commit/d30de11879113cadbe2f4dc821d796b8cdc4fb49)**
+- Create an implementation objects perviously specified in tests.
+- Leave the doors open for other implementations of interfaces so that we could extend the implementation to use a database or a S3 bucket.
+- The new code is not used in the app code yet. We will do that in the next commits.
+
+### 18. **[feat: :test_tube::white_check_mark: Integrate storage code with the app](https://github.com/jakubsob/acceptance-tdd-shiny-development/commit/fb6049716eea6eda29b8e20745c35d637969f7a8)**
+- Use new interface of saving inputs in the app.
+- Update the acceptance test so that each test case uses it's own storage, making them independent of each other.
 
 
 <!-- END_COMMITS -->
