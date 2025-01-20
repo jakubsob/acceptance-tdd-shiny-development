@@ -1,6 +1,10 @@
 box::use(
+  bslib[
+    page_fluid,
+  ],
   shiny[
-    bootstrapPage,
+    column,
+    fluidRow,
     moduleServer,
     NS,
     observeEvent,
@@ -19,40 +23,62 @@ box::use(
 #' @export
 ui <- function(id) {
   ns <- NS(id)
-  bootstrapPage(
-    components$numeric_input(
-      ns("income"),
-      label = "Income",
-      value = 0,
-      .data_test = "income"
-    ),
-    components$button(
-      ns("record_income"),
-      "Record Income",
-      .data_test = "record-income"
-    ),
-    components$numeric_input(
-      ns("expense"),
-      label = "Expense",
-      value = 0,
-      .data_test = "expense"
-    ),
-    components$button(
-      ns("record_expense"),
-      "Record Expense",
-      .data_test = "record-expense"
-    ),
-    components$text_output(
-      ns("total_income"),
-      .data_test = "total-income"
-    ),
-    components$text_output(
-      ns("total_expenses"),
-      .data_test = "total-expenses"
-    ),
-    components$text_output(
-      ns("net_balance"),
-      .data_test = "net-balance"
+  page_fluid(
+    fluidRow(
+      column(
+        width = 4,
+        offset = 4,
+        class = "d-flex flex-column gap-2",
+        components$form(
+          components$numeric_input(
+            ns("income"),
+            label = "Income",
+            value = 0,
+            class = "form-control",
+            .data_test = "income"
+          ),
+          components$button(
+            ns("record_income"),
+            "Record Income",
+            .data_test = "record-income"
+          )
+        ),
+        components$form(
+          components$numeric_input(
+            ns("expense"),
+            label = "Expense",
+            value = 0,
+            class = "form-control",
+            .data_test = "expense"
+          ),
+          components$button(
+            ns("record_expense"),
+            "Record Expense",
+            .data_test = "record-expense"
+          )
+        ),
+        components$value_card(
+          "Total Income",
+          components$text_output(
+            ns("total_income"),
+            .data_test = "total-income"
+          )
+        ),
+        components$value_card(
+          "Total Expenses",
+          components$text_output(
+            ns("total_expenses"),
+            .data_test = "total-expenses"
+          )
+        ),
+        components$value_card(
+          "Net Balance",
+          components$text_output(
+            ns("net_balance"),
+            .data_test = "net-balance"
+          )
+        )
+      )
     )
   )
 }

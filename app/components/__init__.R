@@ -1,20 +1,47 @@
 box::use(
   shiny[
     actionButton,
-    numericInput,
     tagAppendAttributes,
+    tags,
     textOutput,
   ],
 )
 
 #' @export
-numeric_input <- function(id, label, value, .data_test = "") {
-  numericInput(
-    id,
-    label = label,
-    value = value
-  ) |>
-    tagAppendAttributes(.cssSelector = "input", "data-test" = .data_test)
+form <- function(...) {
+  tags$div(
+    class = "input-group",
+    ...
+  )
+}
+
+#' @export
+value_card <- function(label, value) {
+  tags$div(
+    class = "card",
+    tags$div(
+      class = "card-body",
+      tags$h5(
+        class = "card-title",
+        label
+      ),
+      tags$p(
+        class = "card-text",
+        value
+      )
+    )
+  )
+}
+
+#' @export
+numeric_input <- function(id, label, value, class = NULL, .data_test = "") {
+  tags$input(
+    id = id,
+    type = "number",
+    class = class,
+    value = value,
+    "data-test" = .data_test
+  )
 }
 
 #' @export
@@ -23,7 +50,9 @@ button <- function(id, label, .data_test = "") {
     id,
     label = label
   ) |>
-    tagAppendAttributes("data-test" = .data_test)
+    tagAppendAttributes("data-test" = .data_test) |>
+    tagAppendAttributes("class" = "btn btn-outline") |>
+    tagAppendAttributes("style" = "width: 200px")
 }
 
 #' @export
