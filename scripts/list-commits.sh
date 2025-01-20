@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Set the repository URL
-REPO_URL="https://github.com/jakubsob/acceptance-tdd-shiny-development"
+REPO_URL="https://github.com/jakubsob/shiny-acceptance-tdd"
 
 # Create README.md if it doesn't exist
 if [ ! -f README.md ]; then
